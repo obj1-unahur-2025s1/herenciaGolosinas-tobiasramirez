@@ -92,6 +92,16 @@ class Oblea inherits Golosina(peso=250) {
 	method sabor() { return vainilla }
 	
 }
+class ObleaCrujiente inherits Oblea {
+	var mordiscos = 0
+	override method mordisco() {
+		super()
+		mordiscos+=1
+		if (mordiscos <=3){
+			peso = peso -3
+		}
+	}
+}
 
 class Chocolatin inherits Golosina {
 	// hay que acordarse de *dos* cosas, el peso inicial y el peso actual
@@ -106,6 +116,22 @@ class Chocolatin inherits Golosina {
 	method sabor() { return chocolate }
 	
 
+}
+class ChocolatinVip inherits Chocolatin {
+	var humedad = 1.5
+	override method peso() = super() * 1+humedad
+	method esHumedadValida(unaHumedad) = unaHumedad.beetween(0,1)
+	method humedad(nueva) {
+		if (!self.esHumedadValida(nueva)) {
+			self.error("la humedad debe ser un numero entre el 0 y el 1")
+		} else {
+			humedad = nueva
+		}
+	}
+	method humedad() = humedad
+	}
+class ChocolatinPremium inherits ChocolatinVip() {
+	override method humedad() = humedad /2
 }
 
 class GolosinaBaniada {
